@@ -108,7 +108,7 @@ require_brew ack
 # require_brew fortune
 require_brew gawk
 # http://www.lcdf.org/gifsicle/ (because I'm a gif junky)
-require_brew gifsicle
+# require_brew gifsicle
 # skip those GUI clients, git command-line all the way
 require_brew git
 # yes, yes, use git-flow, please :)
@@ -219,13 +219,16 @@ require_cask iterm2
 #require_cask sizeup
 #require_cask simple-comic
 #require_cask sketchup
-#require_cask drobo-dashboard
-#require_cask teamviewer
-#require_cask skype
-#require_cask fabric
+
+require_cask drobo-dashboard
+require_cask teamviewer
+require_cask skype
+require_cask spectacle
 
 require_cask qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package 
 qlmanage -r
+
+require_cask sublime-text
 
 require_cask atom
 require_apm linter
@@ -287,10 +290,10 @@ sudo pmset -a sms 0;ok
 ################################################
 
 # running "Set computer name (as done via System Preferences → Sharing)"
-sudo scutil --set ComputerName "antic"
-sudo scutil --set HostName "antic"
-sudo scutil --set LocalHostName "antic"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "antic"
+sudo scutil --set ComputerName "mba"
+sudo scutil --set HostName "mba"
+sudo scutil --set LocalHostName "mba"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "mba"
 
 # running "Disable smooth scrolling"
 # (Uncomment if you’re on an older Mac that messes up the animation)
@@ -338,19 +341,19 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 #running "Add a spacer to the right side of the Dock (where the Trash is)"
 #defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}';ok
 
-running "Set a custom wallpaper image"
+# running "Set a custom wallpaper image"
 # `DefaultDesktop.jpg` is already a symlink, and
 # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
-rm -rf ~/Library/Application Support/Dock/desktoppicture.db
-sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
-sudo ln -s ~/.dotfiles/img/wallpaper.jpg /System/Library/CoreServices/DefaultDesktop.jpg;ok
+# rm -rf ~/Library/Application Support/Dock/desktoppicture.db
+# sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
+# sudo ln -s ~/.dotfiles/img/wallpaper.jpg /System/Library/CoreServices/DefaultDesktop.jpg;ok
 
 
 ################################################
 bot "Standard System Changes"
 ################################################
-running "always boot in verbose mode (not OSX GUI mode)"
-sudo nvram boot-args="-v";ok
+# running "always boot in verbose mode (not OSX GUI mode)"
+# sudo nvram boot-args="-v";ok
 
 running "allow 'locate' command"
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist > /dev/null 2>&1;ok
@@ -364,22 +367,22 @@ sudo nvram SystemAudioVolume=" ";ok
 running "Menu bar: disable transparency"
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false;ok
 
-running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-	defaults write "${domain}" dontAutoLoad -array \
-		"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-		"/System/Library/CoreServices/Menu Extras/Volume.menu" \
-		"/System/Library/CoreServices/Menu Extras/User.menu"
-done;
-defaults write com.apple.systemuiserver menuExtras -array \
-	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
-	"/System/Library/CoreServices/Menu Extras/Clock.menu"
-ok
+# running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
+# for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+	# defaults write "${domain}" dontAutoLoad -array \
+	# 	"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+	# 	"/System/Library/CoreServices/Menu Extras/Volume.menu" \
+	# 	"/System/Library/CoreServices/Menu Extras/User.menu"
+# done;
+# defaults write com.apple.systemuiserver menuExtras -array \
+	# "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+	# "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+	# "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+	# "/System/Library/CoreServices/Menu Extras/Clock.menu"
+# ok
 
-running "Set highlight color to green"
-defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
+# running "Set highlight color to green"
+# defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
 
 running "Set sidebar icon size to medium"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2;ok
@@ -436,8 +439,8 @@ sudo systemsetup -setcomputersleep Off > /dev/null;ok
 running "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;ok
 
-running "Disable Notification Center and remove the menu bar icon"
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1;ok
+# running "Disable Notification Center and remove the menu bar icon"
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1;ok
 
 running "Disable smart quotes as they’re annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false;ok
