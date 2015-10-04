@@ -91,6 +91,7 @@ require_brew findutils
 #install ringojs
 #install narwhal
 
+
 # Install other useful binaries
 require_brew ack
 # Beanstalk http://kr.github.io/beanstalkd/
@@ -99,12 +100,12 @@ require_brew ack
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.beanstalk.plist
 
 # docker setup:
-require_brew boot2docker
+# require_brew boot2docker
 
 # dos2unix converts windows newlines to unix newlines
-require_brew dos2unix
+# require_brew dos2unix
 # fortune command--I source this as a better motd :)
-require_brew fortune
+# require_brew fortune
 require_brew gawk
 # http://www.lcdf.org/gifsicle/ (because I'm a gif junky)
 require_brew gifsicle
@@ -123,12 +124,13 @@ require_brew homebrew/dupes/grep
 require_brew hub
 require_brew imagemagick
 require_brew imagesnap
+require_brew python
 # jq is a JSON grep
-require_brew jq
+# require_brew jq
 # http://maven.apache.org/
-require_brew maven
-require_brew memcached
-require_brew nmap
+# require_brew maven
+# require_brew memcached
+# require_brew nmap
 # require_brew node
 require_brew nvm
 require_brew redis
@@ -143,10 +145,10 @@ require_brew watch
 # Install wget with IRI support
 require_brew wget --enable-iri
 
-bot "if you would like to start memcached at login, run this:"
-echo "ln -sfv /usr/local/opt/memcached/*.plist ~/Library/LaunchAgents"
-bot "if you would like to start memcached now, run this:"
-echo "launchctl load ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist"
+# bot "if you would like to start memcached at login, run this:"
+# echo "ln -sfv /usr/local/opt/memcached/*.plist ~/Library/LaunchAgents"
+# bot "if you would like to start memcached now, run this:"
+# echo "launchctl load ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist"
 
 # nvm
 require_nvm stable
@@ -162,21 +164,21 @@ require_npm npm-check
 # http://ionicframework.com/
 # require_npm cordova
 # require_npm ionic
-require_npm yo
+# require_npm yo
 # https://github.com/markdalgleish/bespoke.js
-require_npm generator-bespoke
-require_npm generator-dockerize
-# require_npm grunt
+# require_npm generator-bespoke
+# require_npm generator-dockerize
+require_npm grunt
 require_npm gulp
 require_npm eslint
 # http://devo.ps/blog/goodbye-node-forever-hello-pm2/
-require_npm pm2
-require_npm prettyjson
+# require_npm pm2
+# require_npm prettyjson
 # require_npm supervisor
 # https://github.com/sindresorhus/trash
-require_npm trash
+# require_npm trash
 # https://github.com/MrRio/vtop
-require_npm vtop
+# require_npm vtop
 
 ###############################################################################
 bot "Ruby Gems..."
@@ -194,14 +196,14 @@ brew tap caskroom/versions > /dev/null 2>&1
 
 # cloud storage
 #require_cask amazon-cloud-drive
-require_cask box-sync
-#require_cask dropbox
-#require_cask evernote
+#require_cask box-sync
+require_cask dropbox
+require_cask evernote
 #require_cask skydrive
 
 # communication
 #require_cask adium
-require_cask slack
+# require_cask slack
 
 # require_cask caffeine
 
@@ -214,14 +216,21 @@ require_cask gpgtools
 # require_cask ireadfast
 require_cask iterm2
 #require_cask macvim
-require_cask sizeup
+#require_cask sizeup
 #require_cask simple-comic
 #require_cask sketchup
+#require_cask drobo-dashboard
+#require_cask teamviewer
+#require_cask skype
+#require_cask fabric
+
+require_cask qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package 
+qlmanage -r
 
 require_cask atom
-# require_apm linter
-# require_apm linter-eslint
-# require_apm atom-beautify
+require_apm linter
+require_apm linter-eslint
+require_apm atom-beautify
 
 require_cask the-unarchiver
 #require_cask transmission
@@ -232,18 +241,16 @@ require_cask xquartz
 # require_cask breach
 # require_cask firefox
 #require_cask firefox-aurora
-require_cask google-chrome
+# require_cask google-chrome
 # require_cask google-chrome-canary
 # require_cask torbrowser
 
 # virtal machines
-require_cask virtualbox
+# require_cask virtualbox
 # chef-dk, berkshelf, etc
 #require_cask chefdk
 # vagrant for running dev environments using docker images
 #require_cask vagrant # # | grep Caskroom | sed "s/.*'\(.*\)'.*/open \1\/Vagrant.pkg/g" | sh
-
-
 
 # bot "Alright, cleaning up homebrew cache..."
 # Remove outdated versions from the cellar
@@ -273,17 +280,17 @@ running "…and make sure it can’t be rewritten"
 sudo chflags uchg /Private/var/vm/sleepimage;ok
 
 #running "Disable the sudden motion sensor as it’s not useful for SSDs"
-# sudo pmset -a sms 0;ok
+sudo pmset -a sms 0;ok
 
 ################################################
 # Optional / Experimental                      #
 ################################################
 
 # running "Set computer name (as done via System Preferences → Sharing)"
-# sudo scutil --set ComputerName "antic"
-# sudo scutil --set HostName "antic"
-# sudo scutil --set LocalHostName "antic"
-# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "antic"
+sudo scutil --set ComputerName "antic"
+sudo scutil --set HostName "antic"
+sudo scutil --set LocalHostName "antic"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "antic"
 
 # running "Disable smooth scrolling"
 # (Uncomment if you’re on an older Mac that messes up the animation)
@@ -443,6 +450,12 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false;ok
 bot "Trackpad, mouse, keyboard, Bluetooth accessories, and input"
 ###############################################################################
 
+running "Magic Mouse: Two button click"
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode TwoButton;ok
+
+running "Mouse tracking speed"
+defaults write -g com.apple.mouse.scaling 2.5;ok
+
 running "Trackpad: enable tap to click for this user and for the login screen"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -477,7 +490,7 @@ defaults write NSGlobalDomain KeyRepeat -int 0;
 
 running "Set language and text formats (english/US)"
 defaults write NSGlobalDomain AppleLanguages -array "en"
-defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=EUR"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true;ok
 
@@ -616,9 +629,9 @@ defaults write com.apple.dock launchanim -bool false;ok
 running "Speed up Mission Control animations"
 defaults write com.apple.dock expose-animation-duration -float 0.1;ok
 
-running "Don’t group windows by application in Mission Control"
+# running "Don’t group windows by application in Mission Control"
 # (i.e. use the old Exposé behavior instead)
-defaults write com.apple.dock expose-group-by-app -bool false;ok
+# defaults write com.apple.dock expose-group-by-app -bool false;ok
 
 running "Disable Dashboard"
 defaults write com.apple.dashboard mcx-disabled -bool true;ok
@@ -634,8 +647,8 @@ defaults write com.apple.dock autohide-delay -float 0;ok
 running "Remove the animation when hiding/showing the Dock"
 defaults write com.apple.dock autohide-time-modifier -float 0;ok
 
-running "Automatically hide and show the Dock"
-defaults write com.apple.dock autohide -bool true;ok
+#running "Automatically hide and show the Dock"
+#defaults write com.apple.dock autohide -bool true;ok
 
 running "Make Dock icons of hidden applications translucent"
 defaults write com.apple.dock showhidden -bool true;ok
@@ -646,8 +659,8 @@ defaults write com.apple.dock hide-mirror -bool true;ok
 running "Reset Launchpad, but keep the desktop wallpaper intact"
 find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete;ok
 
-running "Add iOS Simulator to Launchpad"
-sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app" "/Applications/iOS Simulator.app";ok
+# running "Add iOS Simulator to Launchpad"
+# sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app" "/Applications/iOS Simulator.app";ok
 
 
 bot "Configuring Hot Corners"
@@ -755,16 +768,16 @@ defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
 	'{"enabled" = 1;"name" = "PDF";}' \
 	'{"enabled" = 1;"name" = "FONTS";}' \
-	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-	'{"enabled" = 0;"name" = "MESSAGES";}' \
-	'{"enabled" = 0;"name" = "CONTACT";}' \
+	'{"enabled" = 1;"name" = "DOCUMENTS";}' \
+	'{"enabled" = 1;"name" = "MESSAGES";}' \
+	'{"enabled" = 1;"name" = "CONTACT";}' \
 	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-	'{"enabled" = 0;"name" = "IMAGES";}' \
+	'{"enabled" = 1;"name" = "IMAGES";}' \
 	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
 	'{"enabled" = 0;"name" = "MUSIC";}' \
 	'{"enabled" = 0;"name" = "MOVIES";}' \
 	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+	'{"enabled" = 1;"name" = "SPREADSHEETS";}' \
 	'{"enabled" = 0;"name" = "SOURCE";}';ok
 running "Load new settings before rebuilding the index"
 killall mds > /dev/null 2>&1;ok
